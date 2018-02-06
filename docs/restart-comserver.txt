@@ -1,0 +1,35 @@
+This is the command the Cerner guy used to enable auto-restart on our new com servers via the Server Control Panel:
+
+Ticket:    418575491 
+Assigned To:    Travis Graham 
+Summary:    issue with com server settings 
+Resolution:    client added 2 new comm servers and they did not auto restart after maintenance on Saturday. Modified instance count and restart for both servers. modify 700 -inst 1 -restart y modify 745 -inst 1 -restart y 
+
+
+08:16:10 # scp
+user: e059100
+domain: p5088
+password:
+Server Control Panel (SCP) Viewer
+scp> show 745
+Server 745 on node [tmmcflapp2] in domain [P5088]
+
+   description:  OP_CENSITRAC_READ
+   path:         cer_exe/srv_drvr
+   parameters:   cer_exe/oen_srvcom -args 1126
+   instances:    1
+   restart:      enabled
+   login as:     system
+
+   properties:   Binding = OEN.ComService.1126
+                 Paging File Limit = 800000
+                 User Name = d_p5088
+
+Of course we do not have privileges to do this..
+
+
+scp> modify 745 -inst 1 -restart n
+no privilege for attempted operation
+
+scp> modify 745 -inst 0
+no privilege for attempted operation

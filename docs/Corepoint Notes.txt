@@ -1,0 +1,158 @@
+Actionlist - Business logic for processing messages
+
+[ Steps ]
+
+	(1) Create interface objects
+		- Inbound applications and their connections
+		- Outbound applications and their connections to route inbound data to
+		- Can create them individually or using Scenario wizard
+		- Specify an ActionList
+			- Specifies the business logic
+			- Uses RFMDB (route,filter,map,database) gear to handle messages
+	(2) Test the ActionList
+		- Select Test
+		- Load messages to test in Message Set
+		- Select Run
+		- The Run Log shows messages processed.  You can see the original contents, and select things like MsgSend to see the processed message.
+	(3) Commit changes to repository
+		- Commit the changes after verifying
+		- Select Workspace Changes -> Commit
+	(4) Activate and Monitor Connections
+		- Set the Engine service to run the new committed version
+		- Use Configuration Repository
+			- Version -> Set Active Configuration
+		- After activating configuration, start/restart the connection
+
+	* At this point you will have connections open to applications and have messages flowing between them via Corepoint *
+
+[ Connection States ]
+	
+	Green 	connected
+	Yellow 	connecting
+	Red 	not connected
+	Grey	stopped
+	Blue	waiting for ACK
+	Orange	connected (simulating)
+	White	started (gear-to-gear and web services)
+	Black	active face not supported
+
+[ Configuration section of Navigator window ]
+
+	Three tabs:
+
+		(1) Objects - list view of all interface objects
+		(2) Workspace Changes - list new, modified, and deleted objects since last commit.
+		(3) Warnings - highlights references to objects that have been deleted or renamed.
+
+[ Graphs ]
+
+	Can view Object and Dataflow graphs
+
+[ Object Faces ]
+
+	- Can add settings to an object face and apply the face to an object to make it behave differently depending on context
+	- For example, a Test face with a port for testing and a Production face with a port for going live
+
+[ Rules for Parsing HL7 ]
+
+	- Segments in right order
+	- Required segments present
+	- Cardinality of all elements matches structure of message
+	- Structure contains placeholder for data
+	- Encoding characters properly escaped
+
+[ Cardinality Syntax ]
+	
+	[...]		optional / no repeats
+	{...}		required / repeats
+	[{...}]		optional / repeats
+
+[ Action List ]
+
+	% used in ActionList with message handles
+
+	- Basically, get raw data, test for some field values, copy some values, create new message for outbound.
+
+[ Derivatives ]
+
+	- Copy of HL7 standard with custom changes
+	- Can be used to handle Z-segments
+	- After creating a derivative, simply update ActionLists with the new derivative instead of the standard
+	- Can change MsgLoad and MsgCreate and then click "Repair All" to fix any broken dependencies
+
+[ Z-segments ]
+
+	- Custom segments
+	- Create derivatives for new format and use them in ActionList for things like MsgLoad and MsgCreate
+
+[ Test for Conformance ]
+
+	- Select the standard to test for on Derivatives pane
+	- Test -> View; select the message type to filter; switch back to standards window; select run to test
+	- Sort by Conforms to see what doesn't conform
+
+[ Create New Data Types ]
+
+	- In the derivative, double click a field
+	- Specify a name for the datatype
+	- Click create
+	- Add data structure elements and element ("component") names
+
+[ Log Files ]
+
+	- Double click a connection to bring up the Raw log file.
+		- contains all TCP/IP traffic: messages sent/received, ACKs, connection changes
+		- Can filter message types
+
+[ Resend Messages ]
+
+	- Locate the message in the Raw log file using the find feature
+	- Select the Resend button
+
+[ ACKs ]
+
+	- Can edit ACK response settings by double-clicking connection, double-clicking ACK/Response and changing the settings
+
+[ Annotation Set ]
+
+	- Can create an Annotation Set, which acts as a format for annotations on a connection
+	- Double click the connection to add the annotation to; double click the annotation section; select the annotation set and add info
+	- Commit changes and then Version -> Set Active Configuration
+	- Can create a popup by going to Preferences -> Connections and selecting annotation set fields to "Show in Tooltips"
+
+[ Code Set Correlation ]
+
+	- Used to translate a set of variables from one format to another
+	- Can be used in ActionLists once created
+	- Use the Scenario wizard's Map Between Code Sets feature to create one
+
+[ Quick Setup ]
+
+	(1) Create connections (inbound/outbound)
+	(2) Set object faces (test/production)
+	(3) Commit Changes (Commit All)
+	(4) Activate changes (Version -> Set Active Configuration)
+	(5) Monitor connections in Administration panel
+
+	(6) Test for conformance and build derivative
+		(i) Test -> Load Engine Log Files
+			- This pulls received messages for the test message set
+		(ii) Select a message and select Open Message button
+		(iii) Select Test -> Run to see errors in Summary pane
+		(iv) Select Fix All to attempt to create an appropriate derivative
+		(v) This adds new Z-segment.  Make sure to mark as both optional and repeatable
+		(vi) Run again.  Might need to fix data types.
+	(7) Use the built derivative in ActionLists
+
+
+[ ForEach ]
+
+	- Available to process repeating fields.
+
+[ Simulation ]
+
+	- Can simulate a connection to process messages
+
+[ Mobile Monitoring ]
+
+	- Get mobile phones on the network and we can monitor from anywhere

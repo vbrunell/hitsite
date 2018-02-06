@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>TMH Interface Group Information Portal</title>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+
+	<section id="body" class="width">
+		<aside id="sidebar" class="column-left">
+			<header>
+				<h1><a href="#">TMH</a></h1>
+				<h2>Integration Services</h2>
+			</header>
+			<nav id="mainnav"></nav>
+		</aside>
+	<section id="content" class="column-right">
+                		
+	    <article>
+			<h2>Server Information</h2>
+			<!--<div class="article-info">Posted on <time datetime="2013-05-14">14 May</time> by <a href="#" rel="author">Joe Bloggs</a></div>-->
+			<br>
+            <p>The current addresses of the Corepoint and Cerner servers are listed below:</p>
+
+			<h3>Cerner</h3>
+			<table>
+					<tr>
+					  <th>Server</th>
+					  <th>IP Inbound</th>
+					  <th>IP Outbound</th>
+					</tr>
+					<tr>
+					  <td>Prod (flapp1)</td>
+					  <td>179.71.89.146</td>
+					  <td>170.71.89.147</td>
+					</tr>
+					<tr>
+					  <td>Prod (flapp2)</td>
+					  <td>179.71.89.148</td>
+					  <td>170.71.89.149</td>
+					</tr>
+					<tr>
+					  <td>Cert (flapp3)</td>
+					  <td>179.71.89.150</td>
+					  <td></td>
+					</tr>
+					<tr>
+					  <td>Mock (flapp3)</td>
+					  <td>179.71.89.150</td>
+					  <td></td>
+					</tr>
+					<tr>
+					  <td>Build (flapp4)</td>
+					  <td>179.71.89.151</td>
+					  <td></td>
+					</tr>
+			</table>			
+			<br>
+			<br>
+			<h3>Corepoint</h3>
+			<table>
+					<tr>
+					  <th>Server</th>
+					  <th>IP Address</th>
+					  <th>IP Portal for A2</th>
+					</tr>
+					<tr>
+					  <td>Prod</td>
+					  <td>10.9.76.139/140</td>
+					  <td>10.9.76.141</td>
+					</tr>
+					<tr>
+					  <td>Test</td>
+					  <td>10.9.76.142/143</td>
+					  <td>10.9.76.144</td>
+					</tr>
+						<tr>
+					  <td>Dev</td>
+					  <td>10.9.76.138</td>
+					  <td></td>
+					</tr>
+			</table>
+			<br>			
+			<p><em>Note that the Corepoint servers use an IP portal that routes incoming traffic to the active server.  This is necessary in case of a failover.</em></p>
+
+		</article>
+
+		<footer class="clear">
+			<p>&copy; 2017 Tallahassee Memorial Healthcare (<a href="https://www.tmh.org/">TMH</a>)</p>
+		</footer>
+		</section>
+		<div class="clear"></div>
+	</section>
+
+	<script src="navscript.js" language="JavaScript"></script>
+</body>
+</html>
