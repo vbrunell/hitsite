@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scripts/footer.js"></script>
+<script type="text/javascript" src="scripts/header.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>TMH Interface Group Information Portal</title>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+
+	<section id="body" class="width">
+		<aside id="sidebar" class="column-left">
+			<header id="thehead"></header>
+			<nav id="mainnav"></nav>
+		</aside>
+	<section id="content" class="column-right">
+               		
+	    <article>
+			<h2 id="top">Powershell</h2>
+			<br>
+			<a class="notnav" href="https://blogs.sans.org/pen-testing/files/2016/05/PowerShellCheatSheet_v41.pdf">Powershell Cheat Sheet1</a></li><br>
+			<a class="notnav" href="http://ramblingcookiemonster.github.io/images/Cheat-Sheets/powershell-basic-cheat-sheet2.pdf">Powershell Cheat Sheet2</a></li><br>
+			<!--<div class="article-info">Posted on <time datetime="2013-05-14">14 May</time> by <a href="#" rel="author">Joe Bloggs</a></div>-->
+			<br>
+            <p>Some useful Powershell commands and scripts.</p>
+			<ul>
+				<li><a class="notnav" href="#termcom">Terminal Commands</a></li>
+				<li><a class="notnav" href="#profile">Profiles</a></li>
+				<li><a class="notnav" href="#funcs">Functions</a></li>
+			</ul>
+		</article>
+
+		<article class="expanded">
+			<h3 id="termcom">Terminal Commands</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br><br>
+				<br>
+				<h5>Find open ports</h5>
+				<p><code>PS C:\> netstat -an | findstr "LISTENING"</code></p>
+				<p><code>PS C:\> netstat -an | findstr "ESTABLISHED"</code></p>
+
+				<h5>Get IP address</h5>
+				<p><code>PS C:\> Get-NetIPAddress -AddressFamily IPv4</code></p>
+
+				<h5>Find path to program</h5>
+				<p>Displays the path to git.exe:
+					<br><code>PS C:\> (gcm git).path</code></p>
+
+				<h5>Find path to Powershell</h5>
+				<p><code>PS C:\> $pshome</code></p>
+		</article>
+
+		<article class="expanded">
+			<h3 id="profile">Powershell Profiles</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+				<br>
+				<h5>How to set up a profile</h5>
+				<p>First, test to see if a profile exists:
+					<br><code>Test-path $profile</code>
+					If false, create a new one:
+					<br><code>New-item -type file -force $profile</code>
+					If true, open and edit away:
+					<br><code>Notepad $profile</code>
+				</p>
+		</article>
+
+		<article class="expanded">
+			<h3 id="funcs">Functions</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+				<br>
+				<h5>Unix 'which' in Powershell</h5>
+				<p>
+<pre><code>function which($name)
+{
+	Get-Command $name | Select-Object -ExpandProperty Definition
+}</code></pre>
+				</p>
+		</article>
+
+		<footer class="clear" id="thefoot"></footer>
+		</section>
+		<div class="clear"></div>
+	</section>
+
+	<script src="navscript.js" language="JavaScript"></script>
+	<script>
+		function myFunction() {
+			document.getElementById("ahome").setAttribute("class", "selected-item"); 
+		}
+	</script>	
+ 
+</body>
+</html>

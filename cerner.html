@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scripts/footer.js"></script>
+<script type="text/javascript" src="scripts/header.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>TMH Interface Group Information Portal</title>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+
+	<section id="body" class="width">
+		<aside id="sidebar" class="column-left">
+			<header id="thehead"></header>
+			<nav id="mainnav"></nav>
+		</aside>
+	<section id="content" class="column-right">
+               		
+	    <article>
+			<h2 id="top">Cerner Info</h2>
+			<!--<div class="article-info">Posted on <time datetime="2013-05-14">14 May</time> by <a href="#" rel="author">Joe Bloggs</a></div>-->
+			<br>
+			<p>Some useful info for getting things done in Cerner.</p>
+			<p>Here are some short tutorials you can use to get up and running:</p>
+			<ul>
+				<li><a class="notnav" href="#carch">Cerner Architecture (ComServers, OEN Router, ESI/ESO Servers)</a></li>
+				<li><a class="notnav" href="#discernvis">Discern Visual Developer (RDBMS and SQL Scripting)</a></li>
+				<li><a class="notnav" href="#tablesfields">Query Builder (Identifying Tables and Fields)</a></li>
+				<li><a class="notnav" href="#openview">OpenView (Servers and Routing)</a></li>
+				<li><a class="notnav" href="#siman">SI Manager (Reports and Logs)</a></li>
+				<li><a class="notnav" href="#tabdef">TABLEDEF and CCLGLOS (View Fields and Data Types)</a></li>
+				<li><a class="notnav" href="#cclusr">CCLUSERDIR (Finding Your Scripts)</a></li>
+				<li><a class="notnav" href="#cdset">Finding Code Sets and Code Values</a></li>
+				<li><a class="notnav" href="#csrc">Querying Contributor Source Aliases</a></li>
+				<li><a class="notnav" href="#clogs">Accessing Logs via the Cerner Backend</a></li>
+			</ul>
+			<p>Here's a list of useful documents provided by Cerner: <a class="notnav" href="#document">Useuful Cerner Documentation</a></li></p>
+		</article>
+
+		<article class="expanded">
+			<h3 id="carch">Cerner Architecture</h3>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<p>
+				<img src="imgs/architecture.png">
+				<br>Open Engine comprises the following servers: 
+				<ul>
+					<li>Open Engine Communications Servers (ComServers) </li>
+					<ul>
+					<li>Communications Protocol is configured within the ComServers </li>
+					<ul>
+					<li>Responsible for establishing a connection with the foreign system or facilitate a connection to the Cerner Millennium database. </li>
+					<li>Transaction formatting is performed within ComServers using custom interface scripts written in CCL</li>
+					</ul>
+					</ul>
+					<li>OEN Router (245)</li>
+					<ul>
+					<li>Responsible for keeping statistical information for all transactions. </li>
+					<li>Maintains OEN_TXLOG. All inbound and outbound messages are written there.</li>
+					</ul>
+					<li>ESI/ESO Servers</li>
+					<ul>
+					<li>Provide connectivity to the Cerner Millennium Database for inbound and outbound interfaces.</li>
+					<li>ESO servers are also responsible for routing most outbound messages to the appropriate ComServers.</li>
+					</ul>
+				</ul>
+					
+				</ul>
+			</p>
+	
+		<article class="expanded">
+			<h3 id="discernvis">Using Discern Visual Developer</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+				<br>
+				<p>Use DVD to write and run queries against the database.
+					<br>To run a query, place the cursor over the query and press ctrl+q.
+					<br>To view and select available tables, switch to the Tables/Fields tab and click on the drop down menu.
+				</p>
+				<br>
+				<h4>Write Queries</h4>
+				<p><img src="imgs/3.png"></p>
+				<h4>View/Select Tables</h4>
+				<p><img src="imgs/4.png"></p>
+		</article>
+		
+		<article class="expanded">
+			<h3 id="tablesfields">Identifying Tables and Fields</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<br>
+			<p>In Discern Visual Developer, open the <b>Query Builder</b> (Tools -> Query Builder).
+			<br>In the Query Builder, there are a few useful ways to extract information:
+			</p>
+			<ul>
+				<li>The Tables tab</li>
+				<li>The Glossary</li>
+			</ul>
+			<p>Use the Tables tab to look at what tables are available for each category.  
+				<br>The most commonly used tables are in the "COMMON" directory.  
+				<br>You can view table properties by right clicking on a table and selecting "properties".</p>
+				<br>
+			<p>To use the Glossary, first select a table in the Tables tab by double clicking on it.
+				<br>On the Fields tab, a list of fields will be included.  
+				<br>Click on Glossary on this page to view information about the table's fields.
+			</p>
+			<h4>Tables Tab</h4>
+			<p>
+				<img src="imgs/1.png">
+			</p>
+			<h4>Glossary</h4>
+			<p>
+				<img src="imgs/2.png">
+			</p>
+		</article>
+
+		<article class="expanded">
+			<h3 id="openview">OpenView</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<br>
+			<p>OpenView allows you to:</p>
+			<ul>
+				<li>Create, start, and stop servers.</li>
+				<li>Create and apply route scripts.</li>
+			</ul>
+			<h4>Manage Servers</h4>
+			<p>To manage servers, go to <b>Controllers</b>.
+				<br>Right click on a server to start, stop, or configure it.
+				<br>To configure a server, right click on a server and select <b>Process Config</b>.
+				<br>
+				<br><em>In Process Config you can:</em>
+				<ul>
+					<li>Set up the servers that are routed to/from in the Services tab.</li>
+					<li>Set scripts in the Formatting tab.</li>
+					<li>Set the communication type and the port in the Communications tab.  The port is set under Service Specs.</li>
+					<li>Set the log level in the Logging tab.</li>
+				</ul>
+			</p>
+			<p>
+				<img src="imgs/5.png">
+			</p>
+			<h4>Scripting</h4>
+			<p>To modify scripts, go to Scripting.
+				<ul>
+				<li>Open an existing script to modify it.</li>
+				<li>When finished, make sure to hit include to make it available.</li>
+				<li>You can then apply it to existing servers.</li>
+				</ul>
+			</p>
+			<p><img src="imgs/6.png"></p>
+	</article>
+
+	<article class="expanded">
+			<h3 id="siman">SI Manager (Systems Interfaces Manager)</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<br>
+			<p>SI Manager allows you to:</p>
+			<ul>
+				<li>Generate reports.</li>
+				<li>View messages in the transaction logs.</li>
+				<li>Run a queue trace on a message.</li>
+			</ul>
+			<h4>Reports</h4>
+			<p>To run reports go to <b>View Reports</b>.
+				<br>Select the contributor system and the date/time range.
+		</p>
+			<p>
+				<img src="imgs/8.png">
+			</p>
+
+		<h4>Logs</h4>
+		<p>Search the logs to view messages by contributor system, date/time, and error type.</p>
+		<p><img src="imgs/7.png"></p>
+			
+		<h4>Queue Trace</h4>
+			<p>Right click on a message in the logs and select Queue Trace Report to view the queue trace.</p>
+	</article>
+
+	<article class="expanded">
+			<h3 id="tabdef">TABLEDEF2 and CCLGLOS (View Table Fields and Data Types)</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<br>
+			<p>TABLEDEF2 and CCLGLOS allow you to view a table's fields and the field data types.</p>
+			<p>To use TABLEDEF2:</p>
+			<p>
+			<ul>
+				<li>Open Discern Visual Developer.</li>
+				<li>Go to Build->Run Prompt Program.</li>
+				<li>In program to run type: TABLEDEF2</li>
+				<li>Click run.</li>
+				<li>In DICTIONARY TABLE NAME enter the name of the table you want to view.</li>
+				<li>For example, you can enter PERSON to view the fields of the person table.</li>
+				<li>Click Execute to view the report.</li>
+			</ul>
+			</p>
+			<p>To use CCLGLOS:</p>
+			<p>
+			<ul>
+				<li>Open Discern Visual Developer.</li>
+				<li>Go to Reports->CCLGLOS.</li>
+				<li>Select Table as the data model.</li>
+				<li>Enter the name of the table you want to view in the Object Name section.</li>
+				<li>For example, you can enter PERSON to view the fields of the person table.</li>
+				<li>Click Execute to view the report.</li>
+			</ul>
+			</p>
+	
+			<h4>TABLEDEF2 - Accessing the field information</h4><br>
+			<p>
+				<img src="imgs/10.png">
+			</p>
+			<p>
+				<img src="imgs/11.png">
+			</p>
+			<h4>The report</h4><br>
+			<p>
+				<img src="imgs/12.png">
+			</p>
+			<h4>CCLGLOS</h4><br>
+			<p>
+				<img src="imgs/14.png">
+			</p>
+			<h4>The report</h4><br>
+			<p>
+				<img src="imgs/15.png">
+			</p>
+	</article>
+
+	<article class="expanded">
+			<h3 id="cclusr">CCLUSERDIR</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<br>
+			<p>The <em>CCLUSERDIR:</em> directory is the default backend directory where all files are placed.
+				<br>To access the directory:
+			<ul>
+				<li>Putty into the Cerner backend.</li>
+				<li>cd to /cerner/d_<em>yourdomainname</em>/ccluserdir</li>
+				<li>Type ls *.prg</li>
+			</ul>
+			</p>
+			<h4>*.prg Scripts in CCLUSERDIR on Cert (d_c5088)</h4><br>
+			<p>
+				<img src="imgs/13.png">
+			</p>
+	</article>
+
+	<article class="expanded">
+			<h3 id="cdset">Finding Code Sets and Code Values</h2>
+				<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+			<br>
+			<p>There are multiple methods for accomplishing this.</p>
+
+			<h4>Method 1</h4>
+			<p>The easiest method is probably to use CoreCodeBuilder: 
+				<ul>
+					<li>Go to Advanced Search.</li>
+					<li>Select Code Set or Code Value.</li>
+					<li>Enter the value and click search.</li>
+				</ul>
+				The code set and its number will be displayed, as well as an expandable list of code values.
+			</p>
+			<p><img src="imgs/20.png"></p>
+	
+			<h4>Method 2</h4>
+			<p>Use the Tables/Fields tab in DVD: 
+				<ul>
+					<li>Look up the code field in the Tables/Fields tab in DVD.</li>
+					<li>Right click on the field in the side pane.
+						<li>Select Code Lookup to go directly to the code values.</li>
+						<li>Or select Properties on the popup menu to view the code set number.</li>
+					</li>
+				</ul>
+			<p><img src="imgs/19.png"></p>
+			</p>
+			<h4>Method 3</h4>
+			<p>In DVD, go to <b>Tools->Add Code Values</b>, or just press CTRL+1.
+			<ul>
+				<li>In the window, right click any of the rows and select Code Lookup.</li>
+				<li>Click Load Code Sets.</li>
+				<li>Search for the Code Set you want, select it, and click Okay.</li>
+				<li>A table displaying the code values in the code set will be displayed.</li>
+			</ul>
+		</p>
+			<p><img src="imgs/16.png"></p>
+			<p><img src="imgs/17.png"></p>
+
+			<h4>Code for Storing Code Values in Variables</h4>
+			<p>Get the code for MRN from code set 319 and store it in MRN_VAR:
+<pre><code>DECLARE MRN_VAR = F8
+SET MRN_VAR = UAR_GET_CODE_BY("MEANING",319 , "MRN")
+</code></pre>
+			</p>
+			<p>Then  you can use it in qualifications:
+<pre><code>EA.ENCNTR_ALIAS_TYPE_CD = MRN_VAR
+</code></pre>
+			</p>
+
+			<h4>Get the Display Value for a Code</h4>
+			<p>Get the display for the encounter alias type code:
+<pre><code>SELECT INTO $OUTDEV
+	E_MED_SERVICE_DISP = UAR_GET_CODE_DISPLAY(E.MED_SERVICE_CD)
+
+FROM ENCOUNTER E
+
+WITH MAXREC = 100, FORMAT, SEPARATOR = " "
+</code></pre>
+			</p>
+
+			<h4>Code for Viewing Code Values</h4>
+			<p>For finding code values in queries given only the CDF meaning, this adhoc query finds the code value associated with "MALE" in code set 57:
+<pre><code>DECLARE MALE_VAR = F8 WITH
+CONSTANT(UAR_GET_CODE_BY("MEANING",57,"MALE")),PROTECT go
+CALL ECHO(MALE_VAR) GO
+</code></pre>
+			</p>
+			<p>To view the results of the echo() go to View->Listing.</p>
+</article>
+
+<article class="expanded">
+		<h3 id="csrc">Querying Contributor Source Aliases</h2>
+			<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+		<br>
+		<p>Use this query in Discern Visual Developer to retrieve Contributor Source aliases.
+			<br>You can look up the Contributor Source Code in CoreCodeBuilder.
+		</p>
+		<pre><code>
+SELECT
+		CV_CONTRIBUTOR_SOURCE_DISP = UAR_GET_CODE_DISPLAY(CV.CONTRIBUTOR_SOURCE_CD)
+		, CV.ALIAS
+		, CV.CODE_SET
+		, CV.CODE_VALUE
+ 
+ FROM
+		CODE_VALUE_ALIAS   CV
+ 
+ WHERE CV.CONTRIBUTOR_SOURCE_CD = 19769808
+ 
+ GROUP BY
+		CV.CODE_SET
+		, CV.CONTRIBUTOR_SOURCE_CD
+		, CV.ALIAS
+		, CV.CODE_VALUE
+	 
+	 WITH NOCOUNTER, SEPARATOR=" ", FORMAT, MAXREC = 1000
+	 </code></pre>
+</article>
+
+<article class="expanded">
+		<h3 id="clogs">Logging in Cerner</h2>
+			<a class="notnav" href="#top">::: Back to top :::</a></li><br>
+		<br>
+		<p>How certain information is logged in the Cerner backend.
+			<br>Also, a list of directories where log files are stored.
+			<br><b>Logging Properties</b>
+			<ul>
+				<li>debuglogging = 0,1,2,3,4 writes to cmb_####_xx.out</li>
+				<ul>
+					<li>#### = SCP Number, left padded with zeroes</li>
+					<li>xx = Instance Number</li>
+				</ul>
+				<li>audit_flag = 0 (off),1 (creates .dat file),2 (creates .dat and .log files) writes to AUD_xxxxx.dat /.log</li>
+				<ul><li>xxxxx = Message Control Id from MSH;10</li></ul>
+				<li>logtable_flag = 0 (errors),1 (warnings),2 (successes) writes to ESI_LOG table</li>
+			</ul>
+		</p>
+
+		<p>
+			<b>VMS/AIX Directories</b>
+				<ul>
+				<li>CMB_TEMP</li>
+				<ul>
+					<li>CMB_####_xx.OUT (debuglogging = 0,1,2,3,4)</li>
+					<li>CMB_####_xx.ERR</li>
+				</ul>
+				<li>CER_LOG</li>
+				<ul>
+					<li>REQLOGHL7.dat (debuglogging = 1, 2, 3)</li>
+					<li><i>script name</i>.dat (debuglogging = 4)</li>
+					<li>AUD_xxxxx.dat (audit_flag = 1)</li>
+					<li>AUD_xxxx.log (audit_flag = 2)</li>
+				</ul>
+				<li>CCLUSERDIR</li>
+				<ul><li>RTLSRV####_xx_nn.log (Startup Script = ESI)</li></ul>
+				</ul>
+		</p>
+</article>
+
+<article class="expanded">
+			<h3 id="document">Documentation</h3>
+			<a class="notnav" href="#top">::: Back to top :::</a></li><br><br>
+			<table>
+					<tr>
+					  <th>Title</th>
+					  <th>Description</th>
+					  <th>Document</th>
+					</tr>
+					<tr>
+					  <td>OpenView Overview</td>
+					  <td>Overview of OpenView and how to use it to create com servers and troubleshoot problems</td>
+					  <td><a href="docs/OpenView.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>CCL Script Notes</td>
+					  <td>A set of notes on CCL scripts.</td>
+					  <td><a href="docs/Notes on Cerner CCL Interface Scripts.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>FSI Notes</td>
+					  <td>General notes on Cerner FSI</td>
+					  <td><a href="docs/Cerner FSI Notes.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>FSI Overview</td>
+					  <td>Cerner's Foreign Systems Interfaces overview</td>
+					  <td><a href="docs/Overview_of_Foreign_System_Interfaces.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>FSI Workflow Diagram</td>
+					  <td>Diagrams illustrating data transfer in FSI</td>
+					  <td><a href="docs/Foreign_System_Interfaces_Workflow.pdf">open</a></td>
+					</tr>
+				<tr>
+					  <td>FSI Functional Checklist</td>
+					  <td>Overview of tools used with FSI</td>
+					  <td><a href="docs/Foreign_System_Interfaces_Functional_Checklist.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>Custom Routing Diagram</td>
+					  <td>A digram that describes the workflow for custom routes</td>
+					  <td><a href="docs/Custom-Routing-Diagram.png">open</a></td>
+					</tr>
+					<tr>
+					  <td>OpenEngine Server Diagrams</td>
+					  <td>Diagrams and descriptions of the OEN servers</td>
+					  <td><a href="docs/OpenEngine Server Diagrams and Descriptions.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>FSI Server (SCP 385)</td>
+					  <td>Description of the FSI server.  Includes dependencies, server interactions, and troubleshooting.</td>
+					  <td><a href="docs/Foreign_System_Interface_Server_(SCP_385).pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>OEN Controller (SCP 240)</td>
+					  <td>Description of the interaction between OpenView and OEN Controller.  List of available scripts.</td>
+					  <td><a href="docs/OEN_Controller_Server_(SCP_240).pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>CPM ESI Server (SCP 250)</td>
+					  <td>Description of the relationship between com servers and the CPM ESI Server</td>
+					  <td><a href="docs/CPM_ESI_Server_(SCP_250).pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>Interface Implementation Procedure</td>
+					  <td>Cerner's description of proper interface implementation</td>
+					  <td><a href="docs/Standard_Interface_Implementation__Process.pdf">open</a></td>
+					</tr>
+
+				</table>
+		</article>
+
+		<footer class="clear" id="thefoot"></footer>
+		</section>
+		<div class="clear"></div>
+	</section>
+
+	<script src="navscript.js" language="JavaScript"></script>
+	<script>
+		function myFunction() {
+			document.getElementById("ahome").setAttribute("class", "selected-item"); 
+		}
+	</script>	
+ 
+</body>
+</html>

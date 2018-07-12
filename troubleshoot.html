@@ -2,6 +2,8 @@
 <html>
 <head>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scripts/footer.js"></script>
+<script type="text/javascript" src="scripts/header.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>TMH Interface Group Information Portal</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -22,10 +24,7 @@ License: Creative Commons Attribution
 
 	<section id="body" class="width">
 		<aside id="sidebar" class="column-left">
-			<header>
-				<h1><a href="#">TMH</a></h1>
-				<h2>Integration Services</h2>
-			</header>
+			<header id="thehead"></header>
 			<nav id="mainnav"></nav>
 		</aside>
 	<section id="content" class="column-right">
@@ -47,6 +46,22 @@ License: Creative Commons Attribution
 					  <td>Procedure for troubleshooting Corepoint/Cerner connection issues.</td>
 					  <td><a href="docs/troubleshoot-connections.pdf">open</a></td>
 					</tr>
+					<tr>
+					  <td>Cerner Troubleshooting Overview</td>
+					  <td>A general overview of the troubleshooting process in Cerner.</td>
+					  <td><a href="https://wiki.ucern.com/display/public/courses/The+Troubleshooting+Process%2C+Step+2%3A+Perform+Research">open</a></td>
+					</tr>
+					<tr>
+					  <td>Cerner Olympus Troubleshooting</td>
+					  <td>An overview of how to use Olympus to troubleshoot.</td>
+					  <td><a href="https://wiki.ucern.com/display/public/courses/The+Troubleshooting+Process%2C+Step+3%3A+Perform+Troubleshooting+Using+Olympus">open</a></td>
+					</tr>
+					<tr>
+					  <td>ESI Troubleshooting PPT</td>
+					  <td>Cerner presentation on troubleshooting ESI.</td>
+					  <td><a href="docs/ESI Troubleshooting.pptx">open</a></td>
+					</tr>
+	
 					<tr>
 					  <td>Cerner ESI</td>
 					  <td>Prodcedure for troubleshooting Cerner ESI issues.</td>
@@ -77,8 +92,7 @@ License: Creative Commons Attribution
 					  <td><a href="docs/.pdf">open</a></td>
 					</tr>
 	-->
-		<footer class="clear">
-			<p>&copy; 2017 Tallahassee Memorial Healthcare (<a href="https://www.tmh.org/">TMH</a>)</p>
+		<footer class="clear" id="thefoot">
 		</footer>
 		</section>
 		<div class="clear"></div>

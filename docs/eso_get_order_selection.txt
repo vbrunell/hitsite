@@ -1,0 +1,458 @@
+
+/*~BB~************************************************************************
+  *                                                                      *
+  *  Copyright Notice:  (c) 1983 Laboratory Information Systems &        *
+  *                              Technology, Inc.                        *
+  *       Revision      (c) 1984-1997 Cerner Corporation                 *
+  *                                                                      *
+  *  Cerner (R) Proprietary Rights Notice:  All rights reserved.         *
+  *  This material contains the valuable properties and trade secrets of *
+  *  Cerner Corporation of Kansas City, Missouri, United States of       *
+  *  America (Cerner), embodying substantial creative efforts and        *
+  *  confidential information, ideas and expressions, no part of which   *
+  *  may be reproduced or transmitted in any form or by any means, or    *
+  *  retained in any storage or retrieval system without the express     *
+  *  written permission of Cerner.                                       *
+  *                                                                      *
+  *  Cerner is a registered mark of Cerner Corporation.                  *
+  *                                                                      *
+  ~BE~***********************************************************************/
+/*****************************************************************************
+
+        Source file name:       ESO_GET_ORDER_SELECTION.PRG
+        Object name:            ESO_GET_ORDER_SELECTION
+        Request #:              1210250
+
+        Product:                ESO
+        Product Team:           Outbound Open Port
+        HNA Version:            500
+        CCL Version:            4.0
+
+        Program purpose:        Suppress order events in the ORM Servers
+                                from being eligable for processing in an
+                                outbound orders interface through the
+                                ESO Servers.
+
+        Tables read:            none
+
+        Tables updated:         none
+
+        Executing from:         ORM Servers (SCP Entries 101, 104, 105, 107)
+
+        Special Notes:          This is a custom script that need to be
+                                handled specially between software relaeses.
+
+******************************************************************************/
+;~DB~************************************************************************
+;    *                      GENERATED MODIFICATION CONTROL LOG              *
+;    ************************************************************************
+;    *                                                                      *
+;    *Mod Date     Engineer             Comment                             *
+;    *--- -------- -------------------- ----------------------------------- *
+;     000 01/01/98 Steven Baranowski    Initial Write
+;     001 05/09/98 Steven Baranowski    Add call echos and bill_only_ind
+;     002 11/24/98 Steven Baranowski    Add cs/template/type flags support
+;     003 11/24/98 Steven Baranowski    General clean-up and commenting
+;     004 09/03/99 Eric Martin          Added validate logic to reply structure
+;~DE~************************************************************************
+;~END~ ******************  END OF ALL MODCONTROL BLOCKS  ********************
+
+drop program ESO_GET_ORDER_SELECTION go
+create program ESO_GET_ORDER_SELECTION
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 1.
+
+THE FOLLOWING REQUEST RECORD SHOULD BE DEFINED IN TDB.  PERFORM A 
+"SHOW ESO_GET_ORDER_SELECTION" IN TDB TO VERFIY THIS REQUEST STRUCTURE IS IN SYNC
+
+record request
+{
+   activity_type_cd      [Double]                      ** ACTIVITY TYPE FROM THE ORDERS TABLE           **
+   action_type_cd        [Double]                      ** ACTION TYPE FROM THE ORDER ACTION TABLE       **
+   from_contributor_system_cd  [Double]                ** NO LONGER USED (SINCE REV 7.3)                **
+   to_contributor_system_cd  [Double]                  ** NO LONGER USED (SINCE REV 7.3)                **
+   order_status_cd       [Double]                      ** ORDER STATUS FROM THE ORDER_ACTION TABLE      **
+   encntr_id             [Double]                      ** ENCNTR_ID FROM THE ORDERS TABLE               **
+   organiztion_id        [Double]                      ** ORG_ID FROM THE ENCOUNTER TABLE (NOT USED)    **
+   dept_order_status_cd  [Double]                      ** DEPT ORDER STATUS FROM ORDER_ACTION TABLE     **
+   hl7_event_cd          [Double]                      ** H7 EVENT (NOT USED CURRENTLY)                 **
+   order_template_flag   [Short]                       ** DEFINES CONTINUING ORDER TYPE                 **
+   cs_flag               [Short]                       ** DEFINES PARENT/CHILD HIERARCHY                **
+   orderable_type_flag   [Short]                       ** DEFINES ORDERABLE TYPE                        **
+   order_control_disp    [String: Variable]            ** DEFINES ORDER CONTROL STRING FROM ORC SEGMENT **
+   failure_ind           [Short]                       ** ORDER FAILURE, ONLY THE ESI SERVER SETS THIS  **
+   order_contrib_sys_cd  [Double]                      ** THE SYSTEM THAT CREATED THE ORDER ORIGINALLY  **
+   action_contrib_sys_cd  [Double]                     ** THE SYSTEM THAT IS PROFORM THE ACTION         **
+   order_id              [Double]                      ** ORDER_ID ON THE ORDERS TABLE                  **
+   action_sequence       [Long]                        ** ACTION_SEQUENCE ON THE ORDER_ACTION TABLE     **
+   bill_only_ind         [Short]                       ** DEFINES IF THE ORDERABLE IS BILL ONLY         **
+}
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 2.
+
+DEFINE LOCAL VARIABLE THAT CAN BE USED IN THE CUSTOM SCRIPTING AT THE BOTTOM OF THIS FILE
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+set activity_type_cdm            = fillstring(12," ")  /* THE CDF MEANING FOR THE ACTIVITY_TYPE       */
+set action_type_cdm              = fillstring(12," ")  /* THE CDF MEANING FOR THE ACTION_TYPE         */
+set order_status_cdm             = fillstring(12," ")  /* THE CDF MEANING FOR THE ORDER_STATUS        */
+set dept_order_status_cdm        = fillstring(12," ")  /* THE CDF MEANING FOR THE DEPT_ORDER_STATUS   */
+
+set from_contributor_system_disp = fillstring(40," ")  /* THE IS NO LONGER USED AS OF REV 7.3         */
+set to_contributor_system_disp   = fillstring(40," ")  /* THE IS NO LONGER USED AS OF REV 7.3         */
+set order_contrib_sys_disp       = fillstring(40," ")  /* THE SYSTEM DISPLAY THAT CREATED THE ORDER   */
+set action_contrib_sys_disp      = fillstring(40," ")  /* THE SYSTEM DISPLAY THAT PERFORM THE ACTION  */
+
+
+/* CS_FLAG ENCODING -- NOTE: AN ORDERABLE MAY HAVE MULTIPLE MEANINGS (ie. It can be a CSParent and a CSChild) */
+
+set CSNone_ind                   = 0                   /* DEFINES A SIMPLE ORDERABLE                  */
+set CSParent_ind                 = 0                   /* DEFINES A CARE SET PARENT                   */ 
+set CSChild_ind                  = 0                   /* DEFINES A CARE SET CHILD                    */
+set CSSGParent_ind               = 0                   /* DEFINES A SUPER-GROUP PARENT                */
+set CSSGChild_ind                = 0                   /* DEFINES A SUPER_GROUP CHILD                 */
+set CSCPParent_ind               = 0                   /* DEFINES A CARE-PLAN PARENT                  */
+set CSCPChild_ind                = 0                   /* DEFINES A CARE-PLAN CHILD                   */
+
+/* ORDERABLE TYPE ENCODING -- NOTE:  ONLY ONE MEANING CAN BE DEFINED */
+
+set OrdNone_ind                  = 0                   /* DEFINES A SIMPLE ORDERABLE                  */
+set OrdTypeNormal_ind            = 0                   /* DEFINES A SIMPLE ORDERABLE                  */
+set OrdTypeSuperGroup_ind        = 0                   /* DEFINES A SUPER GROUP                       */
+set OrdTypeCarePlan_ind          = 0                   /* DEFINES A CARE PLAN                         */
+set OrdTypeAPSpecial_ind         = 0                   /* DEFINES AP SPECIAL USAGE                    */
+set OrdTypeDeptOnly_ind          = 0                   /* DEFINES DEPARTMENT ONLY USAGE               */
+set OrdTypeCareSet_ind           = 0                   /* DEFINES A CASE SET                          */
+set OrdTypeIntervalTest_ind      = 0                   /* DEFINES AN INTERVAL TEST                    */
+
+/* ORDER TEMPLATE ENCODING -- NOTE:  ONLY ONE MEANING CAN BE DEFINED */
+
+set ContOrdNone_ind              = 0                   /* DEFINES A NON-CONTINUING ORDERABLE          */
+set ContOrdTemplate_ind          = 0                   /* DEFINES A TEMPLATE PARENT                   */
+set ContOrdInstance_ind          = 0                   /* DEFINES A TEMPLATE INSTANCE                 */
+
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 3.
+
+DECODE THE CS_FLAG INTO INDICATOR VARIABLES
+
+Here is the enumeration definition for the CS_FLAG:      
+   eCSNone   = 0,                                         
+   eCSParent = 1,                                         
+   eCSChild  = 2,                                         
+   eCSSGParent = 4,                                       
+   eCSSGChild  = 8,                                       
+   eCSCPParent = 16,                                      
+   eCSCPChild  = 32                                       
+                                                          
+When using the BTEST function, bit numbering starts at 0 
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+if( request->cs_flag = 0)
+  set CSNone_ind     = 1
+endif
+set CSParent_ind   = BTEST(request->cs_flag,0)
+set CSChild_ind    = BTEST(request->cs_flag,1)
+set CSSGParent_ind = BTEST(request->cs_flag,2)
+set CSSGChild_ind  = BTEST(request->cs_flag,3)
+set CSCPParent_ind = BTEST(request->cs_flag,4)
+set CSCPChild_ind  = BTEST(request->cs_flag,5)
+
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 4.
+
+DECODE THE ORDERABLE_TYPE_FLAG INTO INDICATOR VARIABLES
+
+Here is the enumeration definition for the ORDERABLE_TYPE_FLAG 
+   eOrdNone   = 0,           
+   eOrdTypeNormal = 1,       
+   eOrdTypeSuperGroup = 2,   
+   eOrdTypeCarePlan = 3,     
+   eOrdTypeAPSpecial = 4,    
+   eOrdTypeDeptOnly = 5,     
+   eOrdTypeCareSet = 6,      
+   eOrdTypeIntervalTest = 9  
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+if(request->orderable_type_flag = 0)
+   set OrdNone_ind             = 1
+endif
+if (request->orderable_type_flag = 1)
+   set OrdTypeNormal_ind       = 1
+endif
+if(request->orderable_type_flag = 2)
+   set OrdTypeSuperGroup_ind   = 1
+endif
+if(request->orderable_type_flag = 3)
+   set OrdTypeCarePlan_ind     = 1
+endif
+if(request->orderable_type_flag = 4)
+   set OrdTypeAPSpecial_ind    = 1
+endif
+if(request->orderable_type_flag = 5)
+   set OrdTypeDeptOnly_ind     = 1
+endif
+if(request->orderable_type_flag = 6)
+   set OrdTypeCareSet_ind      = 1
+endif
+if (request->orderable_type_flag = 9)
+  set OrdTypeIntervalTest_ind = 1
+endif
+
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 5.
+
+DECODE THE ORDER_TEMPLATE_FLAG INTO INDICATOR VARIABLES:
+
+Here is the enumeration definition for the ORDER_TEMPLATE_FLAG:
+   eContOrdNone   = 0,   --  not part of cont order 
+   eContOrdTemplate = 1, -- parent                  
+   eContOrdInstance = 2  -- instance                
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+if(request->order_template_flag = 0)
+   set ContOrdNone_ind     = 1
+endif
+if(request->order_template_flag = 1)
+   set ContOrdTemplate_ind = 1
+endif
+if(request->order_template_flag = 2)
+   set ContOrdInstance_ind = 1
+endif
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 6.
+
+PERFORM UAR CODE CALLS TO GET CDF_MEANING AND DISPLAY STRINGS FOR CODE_VALUE PARAMETERS
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+set activity_type_cdm           = uar_get_code_meaning(request->activity_type_cd)
+set action_type_cdm             = uar_get_code_meaning(request->action_type_cd)
+set order_status_cdm            = uar_get_code_meaning(request->order_status_cd)
+set dept_order_status_cdm       = uar_get_code_meaning(request->dept_order_status_cd)
+
+set from_contributor_system_disp = uar_get_code_display(request->from_contributor_system_cd)
+set to_contributor_system_disp   = uar_get_code_display(request->to_contributor_system_cd)
+set order_contrib_sys_disp       = uar_get_code_display(request->order_contrib_sys_cd)
+set action_contrib_sys_disp      = uar_get_code_display(request->action_contrib_sys_cd)
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 7.
+
+PERFORM CALL ECHO STATEMENTS FOR DEBUGGING
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+;set trace callecho
+call echo("*** ESO_GET_ORDER_SELECTION *****************************")
+call echo(concat("order_id = ",cnvtstring(request->order_id)))
+call echo(concat("action_sequence = ",cnvtstring(request->action_sequence)))
+call echo(concat("encntr_id = ",cnvtstring(request->encntr_id)))
+call echo(concat("activity_type_cd = ",
+                 cnvtstring(request->activity_type_cd),
+                 " = ", activity_type_cdm))
+call echo(concat("action_type_cd = ",
+                 cnvtstring(request->action_type_cd),
+                 " = ", action_type_cdm))
+call echo(concat("from_contributor_system_cd = ",
+                 cnvtstring(request->from_contributor_system_cd),
+                 " = ", from_contributor_system_disp))
+call echo(concat("to_contributor_system_cd = ",
+                 cnvtstring(request->to_contributor_system_cd),
+                 " = ", to_contributor_system_disp))
+call echo(concat("order_status_cd = ",
+                 cnvtstring(request->order_status_cd),
+                 " = ", order_status_cdm))
+call echo(concat("dept_order_status_cd = ",
+                 cnvtstring(request->dept_order_status_cd),
+                 " = ", dept_order_status_cdm))
+call echo(concat("cs_flag = ",cnvtstring(request->cs_flag)))
+     if( CSNone_ind > 0 )
+        call echo("==> CSNone_ind SET, May be a simple orderable")
+     endif   
+     if( CSParent_ind > 0 )
+        call echo("==> CSParent_ind SET, CareSet Parent Orderable")
+     endif   
+     if( CSChild_ind > 0 )
+        call echo("==> CSChild_ind SET, CareSet Child Orderable")
+     endif   
+     if( CSSGParent_ind > 0 )
+        call echo("==> CSSGParent_ind SET, Super-Group Parent Orderable")
+     endif   
+     if( CSSGChild_ind > 0 )
+        call echo("==> CSSGChild_ind SET, Super-Group Child Orderable")
+     endif   
+     if( CSCPParent_ind > 0 )
+        call echo("==> CSSCP_ind SET, Care Plan Parant Orderable")
+     endif   
+     if( CSCPChild_ind > 0 )
+        call echo("==> CSSCPChild_ind SET, Care Plan Child Orderable")
+     endif
+
+call echo(concat("orderable_type_flag = ",cnvtstring(request->orderable_type_flag)))
+     if( OrdNone_ind > 0 )
+        call echo("==> OrdNone_ind SET, Maybe a simple or normal orderable")
+     endif             
+     if( OrdTypeNormal_ind > 0 )
+        call echo("==> OrdTypeNormal_ind SET, Normal Orderable Type")
+     endif             
+     if( OrdTypeSuperGroup_ind > 0 )
+        call echo("==> OrdTypeSuperGroup_ind SET, Super Group Orderable Type")
+     endif             
+     if( OrdTypeCarePlan_ind > 0 )
+        call echo("==> OrdTypeCarePlan_ind SET, Care Plan Orderable Type")
+     endif             
+     if( OrdTypeAPSpecial_ind > 0 )
+        call echo("==> OrdTypeAPSpecial_ind SET, AP Special Orderable Type")
+     endif             
+     if( OrdTypeDeptOnly_ind > 0 )
+        call echo("==> OrdTypeDeptOnly_ind SET, Dept Only Orderable Type")
+     endif             
+     if( OrdTypeCareSet_ind > 0 )
+        call echo("==> OrdTypeCareSet_ind SET, Care Set Orderable Type")
+     endif             
+     if( OrdTypeIntervalTest_ind > 0 )
+        call echo("==> OrdTypeIntervalTest_ind SET, Interval Test Orderable Type")
+     endif             
+
+call echo(concat("order_template_flag = ",cnvtstring(request->order_template_flag)))
+     if( ContOrdNone_ind     > 0 )
+        call echo("==> ContOrdNone_ind SET, Not a Template Orderable" )
+     endif
+     if( ContOrdTemplate_ind > 0 )
+        call echo("==> ContOrdTemplate_ind SET, Template Order Parent" )
+     endif
+     if( ContOrdInstance_ind > 0 )
+        call echo("==> ContOrdInstance_ind SET, Template Order Instance" )
+     endif
+
+call echo(concat("failure_ind = ",cnvtstring(request->failure_ind)))
+call echo(concat("order_contrib_sys_cd = ",
+                 cnvtstring(request->order_contrib_sys_cd),
+                 " = ", order_contrib_sys_disp))
+call echo(concat("action_contrib_sys_cd = ",
+                 cnvtstring(request->action_contrib_sys_cd),
+                 " = ", action_contrib_sys_disp))
+call echo(concat("order_control_disp = ",request->order_control_disp))
+call echo(concat("bill_only_ind = ",cnvtstring(request->bill_only_ind)))
+
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 8.
+
+DEFINE THE REPLY HANDLE
+
+The reply->status_data->status should have the following values:
+
+ "S" means that order event is not suppress and that the CQM Server should be sent the event
+ "Z" means to suppress the order event and the CQM Server should not be contacted
+ "F" means that the script actually failed for some unknown or critical reason
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+/* 004 */
+
+if ( not validate( reply , 0 ) )
+
+        record reply 
+        (
+        /* %i cclsource:status_block.inc */
+          1 status_data
+            2 status = c1
+            2 subeventstatus[1]
+              3 OperationName = c25
+              3 OperationStatus = c1
+              3 TargetObjectName = c25
+              3 TargetObjectValue = vc
+        )
+        
+        set reply->status_data->status = "S"  
+
+endif
+
+
+/********************************************************************************************
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+SECTION 9.
+
+PERFORM ALL SITE SPECIFIC CUSTOM CODING HERE
+
+Use basic IF statements to check any variable condition to determime when to set the
+reply->status_data->status variable to a "Z" (to suppress).  Since the 
+reply->status_data->status variable is default to "S", the order event is assumed to be
+valid until a suppression condition below is encountered.
+
+Use varibles defined in Sections 1 and 2 above in the IF statements.  DO NOT use code_value
+variables in the REQUEST record as it leads to a non-portable implementation between 
+environment.  Instead, use the CDF MEANING or DISPLAY variable declared in Section 2 and 
+values fetched in SEction 6.
+
+---------------------------------------------------------------------------------------------
+********************************************************************************************/
+
+;EXAMPLE 1:
+;/* Suppress CareSet Parent Order - */
+;if ( CSParent_ind > 0 ) 
+;  set reply->status_data->status = "Z"  
+;  call echo("CareSet Parent Orderables SUPPRESSED")
+;endif
+
+;EXAMPLE 2:
+;/* Suppress Template Order Parents - */
+;if ( ContOrdTemplate_ind > 0 ) 
+;  set reply->status_data->status = "Z"  
+;  call echo("Template Parent Orderables SUPPRESSED")
+;endif
+
+;EXAMPLE 3:
+;/* Suppress COMPLETE Action from the EXTERNAL_SYSTEM_DISPLAY contributor_system - */
+;if ( trim(action_contrib_sys_disp) = "EXTERNAL_SYSTEM_DISPLAY") 
+;  if( trim(action_type_cdm) = "COMPLETE" ) 
+;     set reply->status_data->status = "Z"  
+;     call echo("EXTERNAL_SYSTEM COMPLETE Action SUPPRESSED")
+;  endif
+;endif
+
+call echo(concat("ESO_GET_ORDER_SELECTION STATUS = ",reply->status_data->status))
+
+end
+go

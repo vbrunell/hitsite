@@ -2,6 +2,8 @@
 <html>
 <head>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scripts/footer.js"></script>
+<script type="text/javascript" src="scripts/header.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>TMH Interface Group Information Portal</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -22,10 +24,7 @@ License: Creative Commons Attribution
 
 	<section id="body" class="width">
 		<aside id="sidebar" class="column-left">
-			<header>
-				<h1><a href="#">TMH</a></h1>
-				<h2>Integration Services</h2>
-			</header>
+			<header id="thehead"></header>
 			<nav id="mainnav"></nav>
 		</aside>
 	<section id="content" class="column-right">
@@ -38,36 +37,52 @@ License: Creative Commons Attribution
 			<h3>Cerner</h3>
 			<table>
 					<tr>
-					  	<td><a href="https://www.ucern.com/">uCern</a></td>
-					  	<td><a href="https://lightson.cerner.com/clients/TMMC_FL/domains/P5088/overview/kpi/">Lights On Network</a></td>
-					  	<td><a href="https://accounts.cerner.com/">Account Page</a></td>
+					  	<td><a href="https://www.ucern.com/" target="_blank">uCern</a></td>
+					  	<td><a href="https://lightson.cerner.com/clients/TMMC_FL/domains/P5088/overview/kpi/" target="_blank">Lights On Network</a></td>
+					  	<td><a href="https://accounts.cerner.com/" target="_blank">Account Page</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="https://eservice.ucern.com/SubmitServiceRequest">Submit Service Request</a></td>
-					  	<td><a href="https://wiki.ucern.com/display/1101fsiHP/Open+View+Help">OpenView Help</a></td>
-					  	<td><a href="https://wiki.ucern.com/display/public/reference/SCPView+Utility">SCPView Reference</a></td>
+					  	<td><a href="https://eservice.ucern.com/SubmitServiceRequest" target="_blank">Submit Service Request</a></td>
+					  	<td><a href="https://mybi.cerner.com/analytics/saw.dll?dashboard" target="_blank">Support Dashboard</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/public/1101discernHP/Functions+Reference+Help+in+Discern+Explorer" target="_blank">Function Reference</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="https://wiki.ucern.com/display/reference/Reference+Pages+Home">Reference Pages</a></td>
-					  	<td><a href="https://wiki.ucern.com/pages/viewpage.action?spaceKey=reference&title=Foreign+System+Interfaces+Reference+Pages">FSI Reference</a></td>
-					  	<td><a href="https://wiki.ucern.com/display/public/1101discernHP/Functions+Reference+Help+in+Discern+Explorer">Function Reference</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/reference/Reference+Pages+Home" target="_blank">Reference Pages</a></td>
+						<td><a href="https://wiki.ucern.com/display/1101fsiHP/Open+View+Help" target="_blank">OpenView Help</a></td>
+						<td><a href="https://wiki.ucern.com/display/public/1101fsiHP/Open+Engine+Available+Record+Structures+by+Script+Type+Using+OpenView" target="_blank">Record Structures</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="https://wiki.ucern.com/display/public/1101fsiHP/MsgView+using+OpenView">MsgView Commands</a></td>
-					  	<td><a href="https://wiki.ucern.com/display/1101fsiHP/Foreign+System+Interfaces+Help+Pages">FSI Help Pages</a></td>
-					  	<td><a href=""></a></td>
+					  	<td><a href="https://wiki.ucern.com/pages/viewpage.action?spaceKey=reference&title=Foreign+System+Interfaces+Reference+Pages" target="_blank">FSI Reference</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/1101fsiHP/Foreign+System+Interfaces+Help+Pages" target="_blank">FSI Help Pages</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/public/reference/SCPView+Utility" target="_blank">SCPView Reference</a></td>
 					</tr>
+					<tr>
+					  	<td><a href="https://wiki.ucern.com/pages/viewpage.action?spaceKey=reference&title=Utilities+Reference+Pages" target="_blank">Utilities Reference Pages</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/help/Back-End+Solution+Help+Pages" target="_blank">Backend Solution Help Pages</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/public/courses/System+Management+Tools" target="_blank">Cerner Course List</a></td>
+					</tr>
+					<tr>
+						<td><a href="https://wiki.ucern.com/pages/viewpage.action?spaceKey=reference&title=Discern+Explorer+Reference+Pages">Discern Explorer Reference</a></td>
+						<td><a href="https://wiki.ucern.com/display/1101discernHP/Discern+Visual+Developer+Help" target="_blank">Discern Visual Developer Help</a></td>
+						<td><a href="https://wiki.ucern.com/display/public/1101discernHP/Discern+Prompt+Builder+Tutorial#DiscernPromptBuilderTutorial-Introduction">Discern Prompt Builder Tutorial</a></td>
+					</tr>
+					<tr>
+						<td><a href="https://wiki.ucern.com/pages/viewpageattachments.action?pageId=1057721398&sortBy=date&startIndex=20">Cerner Documentation</a></td>
+						<td><a href="https://wiki.ucern.com/display/public/1101discernHP/User+Access+Routine+Help+in+Discern+Explorer">User Access Routines</a></td>
+					  	<td><a href="https://wiki.ucern.com/display/public/1101fsiHP/MsgView+using+OpenView" target="_blank">MsgView Commands</a></td>
+					</tr>
+	
 			</table>
 			<br>
 			<h3>Cerner CODE</h3>
 			<table>
 					<tr>
-					  	<td><a href="https://code.cerner.com/">Cerner CODE Home</a></td>
-					  	<td><a href="https://docs.healtheintent.com/">HealthIntent Open Dev API</a></td>
-					  	<td><a href="http://fhir.cerner.com/">Cerner FHIR App Development</a></td>
+					  	<td><a href="https://code.cerner.com/" target="_blank">Cerner CODE Home</a></td>
+					  	<td><a href="https://docs.healtheintent.com/" target="_blank">HealthIntent Open Dev API</a></td>
+					  	<td><a href="http://fhir.cerner.com/" target="_blank">Cerner FHIR App Development</a></td>
 					</tr>
 					<tr>
-						  <td><a href="http://engineering.cerner.com/smart-on-fhir-tutorial/#introduction">SMART App Quickstart</a></td>
+						  <td><a href="http://engineering.cerner.com/smart-on-fhir-tutorial/#introduction" target="_blank">SMART App Quickstart</a></td>
 						  <td></td>
 						  <td></td>
 					</tr>
@@ -76,17 +91,17 @@ License: Creative Commons Attribution
 			<h3>Corepoint</h3>
 			<table>
 					<tr>
-					  	<td><a href="docs/tech-overview.pdf">Technical Overview</a></td>
-						<td><a href="docs/api-primer.pdf">API Primer</a></td>
-						<td><a href="https://corepointhealth.com/resource-center/white-papers">White Papers</a></td>
+					  	<td><a href="docs/tech-overview.pdf" target="_blank">Technical Overview</a></td>
+						<td><a href="docs/api-primer.pdf" target="_blank">API Primer</a></td>
+						<td><a href="https://corepointhealth.com/resource-center/white-papers" target="_blank">White Papers</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="https://corepointhealth.com/resource-center/datasheets/web-services-corepoint-integration-engine">Web Services</a></td>
-						<td><a href="https://corepointhealth.com/resource-center/datasheets/corepoint-health-high-availability">A2 High Availability</a></td>
-						<td><a href="https://corepointhealth.com/resource-center/datasheets/hl7-conformance-checking-corepoint-integration-engine">HL7 Conformance Checking</a></td>
+					  	<td><a href="https://corepointhealth.com/resource-center/datasheets/web-services-corepoint-integration-engine" target="_blank">Web Services</a></td>
+						<td><a href="https://corepointhealth.com/resource-center/datasheets/corepoint-health-high-availability" target="_blank">A2 High Availability</a></td>
+						<td><a href="https://corepointhealth.com/resource-center/datasheets/hl7-conformance-checking-corepoint-integration-engine" target="_blank">HL7 Conformance Checking</a></td>
 					</tr>
 					<tr>
-						  <td><a href="https://corepointhealth.com/resource-center/hl7-resources/use-cases-fhir">FHIR Use Cases</a></td>
+						  <td><a href="https://corepointhealth.com/resource-center/hl7-resources/use-cases-fhir" target="_blank">FHIR Use Cases</a></td>
 						  <td></td>
 						  <td></td>
 					</tr>
@@ -95,22 +110,22 @@ License: Creative Commons Attribution
 			<h3>HL7</h3>
 			<table>
 					<tr>
-					  	<td><a href="http://wiki.hl7.org/index.php?title=Main_Page">HL7 Wiki</a></td>
-						<td><a href="http://www.hosinc.com/products/interfaces/interface_documentation.htm">Quick Reference</a></td>
-						<td><a href="docs/hl7-message-types.pdf">Message Types Cheat Sheet</a></td>
+					  	<td><a href="http://wiki.hl7.org/index.php?title=Main_Page" target="_blank">HL7 Wiki</a></td>
+						<td><a href="http://www.hosinc.com/products/interfaces/interface_documentation.htm" target="_blank">Quick Reference</a></td>
+						<td><a href="docs/hl7-message-types.pdf" target="_blank">Message Types Cheat Sheet</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="http://www.hl7.org/participate/toolsandresources.cfm?ref=nav">Tools and Resources</a></td>
-						<td><a href="http://www.hl7.com.au/HL7-Tools.htm">More Tools</a></td>
-						<td><a href="http://www.fortherecordmag.com/archives/ftr_01082007p22.shtml">Beginner's Guide</a></td>
+					  	<td><a href="http://www.hl7.org/participate/toolsandresources.cfm?ref=nav" target="_blank">Tools and Resources</a></td>
+						<td><a href="http://www.hl7.com.au/HL7-Tools.htm" target="_blank">More Tools</a></td>
+						<td><a href="http://www.fortherecordmag.com/archives/ftr_01082007p22.shtml" target="_blank">Beginner's Guide</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="https://datica.com/academy/hl7-101-a-primer/">HL7 Primer</a></td>
-						<td><a href="https://datica.com/academy/hl7-102-anatomy-of-an-hl7-message/">Anatomy of an HL7 Message</a></td>
-						<td><a href="https://datica.com/academy/hl7-202-the-hl7-ack-acknowledgement-message/">ACK Explained</a></td>
+					  	<td><a href="https://datica.com/academy/hl7-101-a-primer/" target="_blank">HL7 Primer</a></td>
+						<td><a href="https://datica.com/academy/hl7-102-anatomy-of-an-hl7-message/" target="_blank">Anatomy of an HL7 Message</a></td>
+						<td><a href="https://datica.com/academy/hl7-202-the-hl7-ack-acknowledgement-message/" target="_blank">ACK Explained</a></td>
 					</tr>
 					<tr>
-						<td><a href="https://datica.com/academy/hl7-201-the-admission-discharge-transfer-adt-message/">ADT Explained</a></td>
+						<td><a href="https://datica.com/academy/hl7-201-the-admission-discharge-transfer-adt-message/" target="_blank">ADT Explained</a></td>
 						<td></td>
 						<td></td>
 					</tr>
@@ -119,14 +134,14 @@ License: Creative Commons Attribution
 			<h3>HL7 FHIR and SMART</h3>
 			<table>
 					<tr>
-					  	<td><a href="https://www.hl7.org/fhir/">HL7 FHIR Official Home Page</a></td>
-						<td><a href="https://www.hl7.org/fhir/documentation.html">FHIR Documentation</a></td>
-						<td><a href="http://hapifhir.io/">FHIR Test Server</a></td>
+					  	<td><a href="https://www.hl7.org/fhir/" target="_blank">HL7 FHIR Official Home Page</a></td>
+						<td><a href="https://www.hl7.org/fhir/documentation.html" target="_blank">FHIR Documentation</a></td>
+						<td><a href="http://hapifhir.io/" target="_blank">FHIR Test Server</a></td>
 					</tr>
 					<tr>
-					  	<td><a href="http://docs.smarthealthit.org/">SMART on FHIR API</a></td>
-						<td><a href="https://smarthealthit.org/an-app-platform-for-healthcare/about/">What is SMART?</a></td>
-						<td><a href="http://engineering.cerner.com/smart-on-fhir-tutorial/#introduction">Cerner SMART App Tutorial</a></td>
+					  	<td><a href="http://docs.smarthealthit.org/" target="_blank">SMART on FHIR API</a></td>
+						<td><a href="https://smarthealthit.org/an-app-platform-for-healthcare/about/" target="_blank">What is SMART?</a></td>
+						<td><a href="http://engineering.cerner.com/smart-on-fhir-tutorial/#introduction" target="_blank">Cerner SMART App Tutorial</a></td>
 					</tr>
 
 			</table>
@@ -134,31 +149,72 @@ License: Creative Commons Attribution
 			<h3>HL7 Integration Engines</h3>
 			<table>
 					<tr>
-					  	<td><a href="https://www.mirth.com/">Mirth</a></td>
-						<td><a href="https://bridge.nextgen.com/media/3244/mirth-data-sheet-mirth-connect-3-5-user-guide.pdf">Mirth User Guide</a></td>
-						<td><a href="https://www.interfaceware.com/iguana.html">Iguana</a></td>
+					  	<td><a href="https://www.mirth.com/" target="_blank">Mirth</a></td>
+						<td><a href="https://bridge.nextgen.com/media/3244/mirth-data-sheet-mirth-connect-3-5-user-guide.pdf" target="_blank">Mirth User Guide</a></td>
+						<td><a href="https://www.interfaceware.com/iguana.html" target="_blank">Iguana</a></td>
 					</tr>
 			</table>
 			<br>
 			<h3>Web Services</h3>
 			<table>
 					<tr>
-						<td><a href="https://blog.smartbear.com/apis/understanding-soap-and-rest-basics/">Understanding SOAP and REST</a></td>
-					  	<td><a href="https://justfreetemplates.com/web-templates/tags/leftsidebar">Website Templates</a></td>
+						<td><a href="https://blog.smartbear.com/apis/understanding-soap-and-rest-basics/" target="_blank">Understanding SOAP and REST</a></td>
+					  	<td><a href="https://justfreetemplates.com/web-templates/tags/leftsidebar" target="_blank">Website Templates</a></td>
 						<td><a href=""></a></td>
 					</tr>
 					<tr>
-						<td><a href="https://guides.github.com/activities/hello-world/">Git 101</a></td>
-					  	<td><a href="https://guides.github.com/introduction/flow/">Git Workflow</a></td>
-						<td><a href="https://help.github.com/">Git Help Pages</a></td>
+						<td><a href="https://guides.github.com/activities/hello-world/" target="_blank">Git 101</a></td>
+					  	<td><a href="https://guides.github.com/introduction/flow/" target="_blank">Git Workflow</a></td>
+						<td><a href="https://help.github.com/" target="_blank">Git Help Pages</a></td>
+					</tr>
+					<tr>
+						<td><a href="https://healthservices.atlassian.net/wiki/spaces/HSPC/pages/64159752/For+Developers" target="_blank">Health Services Platform Consortium</a></td>
+						<td><a href="https://bitbucket.org/account/user/hspconsortium/projects/SE" target="_blank">HSPC Sandbow Examples</a></td>
+					</tr>
+					<tr>
+						<td><a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" target="_blank">Mozilla - Web Guide</a></td>
+						<td><a href="https://developer.mozilla.org/en-US/Apps/Fundamentals/Modern_web_app_architecture" target="_blank">Mozilla - Modern Web Architecture</a></td>
+						<td><a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/How_do_you_host_your_website_on_Google_App_Engine" target="_blank">Publish Website on GCP</a></td>
 					</tr>
 			</table>
 			<br>
+			<h3>Windows Server</h3>
+			<table>
+					<tr>
+						<td><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd349801(v%3dws.10)" target="_blank">Windows Server Guide</a></td>
+					  	<td><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd469842(v%3dws.10)" target="_blank">NAT Example</a></td>
+						<td><a href="https://support.techsmith.com/hc/en-us/articles/213552948-How-to-Export-Event-Viewer-Logs">Export Event Viewer Logs</a></td>
+					</tr>
+			</table>
+			<br>
+			<h3>.NET and C#</h3>
+			<table>
+					<tr>
+						<td><a href="https://docs.microsoft.com/en-us/dotnet/standard/index">.NET Guide</a></td>
+						<td><a href="https://docs.microsoft.com/en-us/dotnet/standard/collections/index">Collections and Data Structures</a></td>
+						<td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/quick-starts/introduction-to-classes">Intro to Classes</a></td>
+					</tr>
+					<tr>
+						<td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/">C# Tutorials</a></td>
+						<td><a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/">C# Keywords</a></td>
+					</tr>
+					<tr>
+						<td><a href="https://www.dotnetperls.com/">DotNet Perls</a></td>
+					</tr>
+	
+			</table>
+			<br>
+			<h3>Shell</h3>
+			<table>
+					<tr>
+						<td><a href="http://devarea.com/understanding-awk-practical-guide/#.Wpm56M7wZEY">AWK Guide</a></td>
+						<td><a href="https://qntm.org/files/re/re.html">Regex Tutorial</a></td>
+					</tr>
+			</table>
+	
 		</article>
 
-		<footer class="clear">
-			<p>&copy; 2017 Tallahassee Memorial Healthcare (<a href="https://www.tmh.org/">TMH</a>)</p>
-		</footer>
+		<footer class="clear" id="thefoot"></footer>
 		</section>
 		<div class="clear"></div>
 	</section>

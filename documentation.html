@@ -2,6 +2,7 @@
 <html>
 <head>
 <script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scripts/footer.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>TMH Interface Group Information Portal</title>
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -44,9 +45,18 @@ License: Creative Commons Attribution
 					  <th>Document</th>
 					</tr>
 					<tr>
+					  <td>Change Log Spreadsheet</td>
+					  <td>Interface Engine IntraSys.xls<br>Resides in:<code>S:\CAB Interface Engine Intra-System Register</code></td>
+					</tr>
+					<tr>
 					  <td>Corepoint Interface Network</td>
 					  <td>A diagram of the interface network</td>
 					  <td><a href="docs/corepoint-interface-network.pdf">open</a></td>
+					</tr>
+					<tr>
+						<td>Location Tables</td>
+						<td>A list of the location tables currently used in Prod.</td>
+						<td><a href="docs/location-tables.pdf">open</a></td>
 					</tr>
 					<tr>
 					  <td>Normalize Code</td>
@@ -63,6 +73,12 @@ License: Creative Commons Attribution
 					  <td>How to build and test action lists that communicate with Cerner com servers</td>
 					  <td><a href="docs/build-test.pdf">open</a></td>
 					</tr>
+					<tr>
+					  <td>Disaster Recovery Plan and Inbound/Outbound Systems</td>
+						<td>DR plan and a list of inbound and outbound systems to Corepoint Prod as of 05/30/2018</td>
+					  <td><a href="docs/DR.docx">open</a></td>
+					</tr>
+
 			</table>
 			<br>
 
@@ -72,6 +88,11 @@ License: Creative Commons Attribution
 					  <th>Title</th>
 					  <th>Description</th>
 					  <th>Document</th>
+					</tr>
+					<tr>
+					  <td>Add Providers to HUB</td>
+					  <td>Process for adding providers to the Cerner HUB</td>
+					  <td><a href="docs/add-provider-to-hub.pdf">open</a></td>
 					</tr>
 					<tr>
 					  <td>Analyze failed transactions</td>
@@ -92,6 +113,11 @@ License: Creative Commons Attribution
 					  <td>Modifiying test domains</td>
 					  <td>Description of how to modify Cerner test domains interfacing with Corepoint Test server</td>
 					  <td><a href="docs/cerner-tests.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>Request Record Structure</td>
+					  <td>eso_get_order_selection script from Cert that describes the request record structure.</td>
+					  <td><a href="docs/eso_get_order_selection.txt">open</a></td>
 					</tr>
 					<tr>
 					  <td>OpenView Overview</td>
@@ -134,6 +160,11 @@ License: Creative Commons Attribution
 					  <td><a href="docs/OpenEngine Server Diagrams and Descriptions.pdf">open</a></td>
 					</tr>
 					<tr>
+					  <td>FSI Server (SCP 385)</td>
+					  <td>Description of the FSI server.  Includes dependencies, server interactions, and troubleshooting.</td>
+					  <td><a href="docs/Foreign_System_Interface_Server_(SCP_385).pdf">open</a></td>
+					</tr>
+					<tr>
 					  <td>OEN Controller (SCP 240)</td>
 					  <td>Description of the interaction between OpenView and OEN Controller.  List of available scripts.</td>
 					  <td><a href="docs/OEN_Controller_Server_(SCP_240).pdf">open</a></td>
@@ -160,9 +191,7 @@ License: Creative Commons Attribution
 					</tr>
 	-->
 
-		<footer class="clear">
-			<p>&copy; 2017 Tallahassee Memorial Healthcare (<a href="https://www.tmh.org/">TMH</a>)</p>
-		</footer>
+		<footer class="clear" id="thefoot"></footer>
 		</section>
 		<div class="clear"></div>
 	</section>
