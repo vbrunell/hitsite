@@ -32,17 +32,89 @@ License: Creative Commons Attribution
 <article class="expanded">
 
 			<h2 id="top">HL7 Messages</h2><br>
-			<p>HL7 messages transmit data between healthcare information systems. An HL7 message consists of a group of segments in a defined sequence.  Here's an example HL7 message:</p>
-			
-			<p>The segments or groups of segments can be optional, required, and/or repeatable.  Here's how cardinality is represented in an HL7 message:</p>
+			<p>HL7 messages transmit data between healthcare information systems. There are two main standards currently in use: HL7v2 and HL7 FHIR.  
+			<p>FHIR (Fast Health Interoperable Resources) is an HL7 standard currently under development to allow for more Agile and RESTful approach to healthcare IT interoperability.</p>  
+			<p>HL7v2 is the standard used by most extant healthcare systems used today, though many are making efforts to transition to HL7 FHIR.</p>  
+			<p>We'll take a brief look at HL7v2.  If you're interested in learning more about HL7 FHIR, please refer to the document section below.</p> 
+			<p>An HL7v2 message consists of a group of segments in a defined sequence.</p>  
+			<p>Here's an example HL7v2 message:</p>
+			<code>
+				MSH|^~\&|SENDING_APP|SENDING_FACILITY|RCVNG_APP|RCVNG_FACILITY|20110613083617||ADT^A01|934576120110613083617|P|2.3||||
+				<br>EVN|A01|20110613083617|||
+				<br>PID|1||135769||DENT^ARTHUR^||19281118|M|||123 Hitchhiker Way^^Tallahassee^FL^32308||(407)939-1289^^^dontpanic@space.com|||||1719|99999999||||||||||||||||||||
+				<br>PV1|1|O|||||^^^^^^^^|^^^^^^^^
+			</code>
+
+			<p>The first field in the first segment defines the segment type.  In this message it's MSH, so this segment is the message header.</p>
+			<p>The second field in the first segment defines the separator characters.  These are used to divide the message fields into components and sub-components, define repeated components, and define the escape character.</p>
+			<p>Here are the standard separator characters used in most HL7 messages:</p>
+	
+			<p>
+				<table id="smtable">
+					<tr>
+					  <th>Separator Character</th>
+					  <th>Function</th>
+					</tr>
+					<tr>
+					  <td>|</td>
+					  <td>Field separator, aka pipe</td>
+					</tr>
+					<tr>
+					  <td>^</td>
+					  <td>Component separator, aka hat</td>
+					</tr>
+					<tr>
+					  <td>&</td>
+					  <td>Sub-component separator</td>
+					</tr>
+					<tr>
+					  <td>~</td>
+					  <td>Field repeat separator</td>
+					</tr>
+					<tr>
+					  <td>\</td>
+					  <td>Escape character</td>
+					</tr>
+				</table>
+			</p>
+		
+			<p>The segments or groups of segments can be optional, required, and/or repeatable (i.e., the cardinality).  The type of characters surrounding the segments determine the cardinality.</p>  
+			<p>Here's how cardinality is represented in an HL7 message:</p>
+
+			<p>
+				<table id="smtable">
+					<tr>
+					  <th>Cardinality</th>
+					  <th>Surrounding Brackets</th>
+					</tr>
+					<tr>
+					  <td>Required</td>
+					  <td>No brackets</td>
+					</tr>
+					<tr>
+					  <td>Optional</td>
+					  <td>[ ]</td>
+					</tr>
+					<tr>
+					  <td>Repeating</td>
+					  <td>{ }</td>
+					</tr>
+					<tr>
+					  <td>Optional and Repeating</td>
+					  <td>[{ }]</td>
+					</tr>
+				</table>
+			</p>
 
 			<p>Every HL7 message has a type that defines the purpose of the message. Message types are identified by a three-character code, and are used in conjunction with a trigger event. </p>
 				
 			<p>An HL7 trigger event is a real-world event that initiates communication and the sending of a message, and is shown as part of the message type. Both the message type and trigger event are found in the MSH-9 field of the message.</p>
 
-			<p>For example, the MSH-9 field might contain the value ADT-A01. This means that ADT is the HL7 message type, and A01 is the trigger event. In the HL7 Standard, an ADT-A01 message is known as a "patient admit" message.</p>
+			<p>For example, as in the message above, the MSH-9 field might contain the value ADT-A01. This means that ADT is the HL7 message type, and A01 is the trigger event. In the HL7 Standard, an ADT-A01 message is known as a "patient admit" message.</p>
 
-			<p>For more information about HL7 messages, please refer to the documents in the table below:</p>
+			<p>There is much more to be said about the format of HL7 messages.  We haven't even discussed the evil Z segments or HL7 FHIR.</p>
+
+			<p>For more information about HL7 messages, including HL7 FHIR, please refer to the documents in the table below:</p>
 
 			<a class="notnav" href="#top">::: Back to top :::</a></li><br><br>
 			<table>
@@ -52,7 +124,7 @@ License: Creative Commons Attribution
 					  <th>Document</th>
 					</tr>
 					<tr>
-					  <td>HL7 Basic Overview</td>
+					  <td>HL7 Basics Overview</td>
 					  <td>Grant Wood's HL7 overview from HIMSS 2012.</td>
 					  <td><a href="docs/HL7-Overview.pdf">open</a></td>
 					</tr>
@@ -70,6 +142,26 @@ License: Creative Commons Attribution
 					  <td>HL7 Fundamentals</td>
 					  <td>Good presentation on HL7 fundamentals by Galen Healthcare Solutions.</td>
 					  <td><a href="docs/hl7-Galen.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 FHIR Overview</td>
+					  <td>Overview of HL7 FHIR by Corepoint.</td>
+					  <td><a href="docs/hl7-fhir-primer.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 FHIR Basics</td>
+					  <td>CDC presentation discussing FHIR basics.</td>
+					  <td><a href="docs/hl7-fhir-cdc.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 FHIR FAQ</td>
+					  <td>HIMSS Standards Committee FHIR FAQ.</td>
+					  <td><a href="docs/hl7-faq-himss.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 FHIR Paper</td>
+					  <td>IEEE paper discussing the the Agile and RESTful approach to HL7 via FHIR.</td>
+					  <td><a href="docs/hl7-fhir-paper.pdf">open</a></td>
 					</tr>
 				</table>
 		</article>
