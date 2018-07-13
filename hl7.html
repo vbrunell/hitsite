@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="scripts/footer.js"></script>
+<script type="text/javascript" src="scripts/header.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Victor's Healthcare IT Site</title>
+<link rel="stylesheet" href="styles.css" type="text/css" />
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!--
+anatine, a free CSS web template by ZyPOP (zypopwebtemplates.com/)
+
+Download: http://zypopwebtemplates.com/
+
+License: Creative Commons Attribution
+//-->
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+
+	<section id="body" class="width">
+		<aside id="sidebar" class="column-left">
+			<header id="thehead"></header>
+			<nav id="mainnav"></nav>
+		</aside>
+	<section id="content" class="column-right">
+               		
+<article class="expanded">
+
+			<h2 id="top">HL7 Messages</h2><br>
+			<p>HL7 messages transmit data between disparate systems. An HL7 message consists of a group of segments in a defined sequence, with these segments or groups of segments being optional, required, and/or repeatable (referred to as HL7 cardinality).</p>
+
+			<p>The HL7 message type defines the purpose for the message being sent and is present in every HL7 message. Message types are identified by a three-character code, and are used in conjunction with a trigger event. An HL7 trigger event is a real-world event that initiates communication and the sending of a message, and is shown as part of the message type. Both the message type and trigger event are found in the MSH-9 field of the message.</p>
+
+			<p>For example, the MSH-9 field might contain the value ADT-A01. This means that ADT is the HL7 message type, and A01 is the trigger event. In the HL7 Standard, an ADT-A01 message is known as a "patient admit" message.</p>
+
+			<p>For more information about HL7 messages, please refer to the documents in the table below:</p>
+
+			<a class="notnav" href="#top">::: Back to top :::</a></li><br><br>
+			<table>
+					<tr>
+					  <th>Title</th>
+					  <th>Description</th>
+					  <th>Document</th>
+					</tr>
+					<tr>
+					  <td>HL7 Basic Overview</td>
+					  <td>Grant Wood's HL7 overview from HIMSS 2012.</td>
+					  <td><a href="docs/HL7-Overview.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 Standard</td>
+					  <td>An introduction to the HL7 standard.</td>
+					  <td><a href="http://www.hl7.org/implement/standards/">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 Comprehensive Overview</td>
+					  <td>A great overview of HL7 by Iatric Systems.</td>
+					  <td><a href="docs/HL7-Iatric.pdf">open</a></td>
+					</tr>
+					<tr>
+					  <td>HL7 Fundamentals</td>
+					  <td>Good presentation on HL7 fundamentals by Galen Healthcare Solutions.</td>
+					  <td><a href="docs/hl7-Galen.pdf">open</a></td>
+					</tr>
+				</table>
+		</article>
+
+		<footer class="clear" id="thefoot"></footer>
+		</section>
+		<div class="clear"></div>
+	</section>
+
+	<script src="navscript.js" language="JavaScript"></script>
+	<script>
+		function myFunction() {
+			document.getElementById("ahome").setAttribute("class", "selected-item"); 
+		}
+	</script>	
+ 
+</body>
+</html>
