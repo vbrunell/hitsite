@@ -53,6 +53,9 @@ blockquote p {
 p {
 	line-height:2.0em;
 	margin-bottom:20px;
+	width: 600px;
+	text-align: justify;
+    text-justify: inter-word;
 }
 a {
 	color:rgb(36, 187, 74);

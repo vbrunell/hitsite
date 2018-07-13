@@ -32,9 +32,13 @@ License: Creative Commons Attribution
 <article class="expanded">
 
 			<h2 id="top">HL7 Messages</h2><br>
-			<p>HL7 messages transmit data between disparate systems. An HL7 message consists of a group of segments in a defined sequence, with these segments or groups of segments being optional, required, and/or repeatable (referred to as HL7 cardinality).</p>
+			<p>HL7 messages transmit data between healthcare information systems. An HL7 message consists of a group of segments in a defined sequence.  Here's an example HL7 message:</p>
+			
+			<p>The segments or groups of segments can be optional, required, and/or repeatable.  Here's how cardinality is represented in an HL7 message:</p>
 
-			<p>The HL7 message type defines the purpose for the message being sent and is present in every HL7 message. Message types are identified by a three-character code, and are used in conjunction with a trigger event. An HL7 trigger event is a real-world event that initiates communication and the sending of a message, and is shown as part of the message type. Both the message type and trigger event are found in the MSH-9 field of the message.</p>
+			<p>Every HL7 message has a type that defines the purpose of the message. Message types are identified by a three-character code, and are used in conjunction with a trigger event. </p>
+				
+			<p>An HL7 trigger event is a real-world event that initiates communication and the sending of a message, and is shown as part of the message type. Both the message type and trigger event are found in the MSH-9 field of the message.</p>
 
 			<p>For example, the MSH-9 field might contain the value ADT-A01. This means that ADT is the HL7 message type, and A01 is the trigger event. In the HL7 Standard, an ADT-A01 message is known as a "patient admit" message.</p>
 
